@@ -100,4 +100,6 @@
 
 退水：除上文语义外，现在又可指中途退出竞选。
 
-## 感谢 [ITX351]()在知乎的回答，[链接](https://www.zhihu.com/question/20773241/answer/25250989)
+## 感谢
+
+感谢[ITX351]()在知乎的回答，[链接](https://www.zhihu.com/question/20773241/answer/25250989)
