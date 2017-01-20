@@ -1,8 +1,9 @@
 一轮包括
-  draw {color} => draw {player: this, color}
-  guess {player, index, guessRank} => guess {player, index, guessRank, response: true||false}
-if response == true
-  () => discover {player: guessPlayer, index: guessIndex, rank: guessRank }
-else
-  discover {index} => discover {player: this, index, rank: index.rank }
+{
+  player: player[this],
+  draw: {color},
+  insert: {index},
+  guess: {player, index, guessRank, response: rank[index] === guessRank},
+  discover: guess.response ? {} : { index, rank: rank[index] }
+}
 共四人进行上述操作
