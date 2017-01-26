@@ -197,6 +197,7 @@ class Card extends Component {
             cardElement = rank
         } else {
             className = 'unchecked'
+            cardElement='T'
         }
         return (
             <div
@@ -208,20 +209,33 @@ class Card extends Component {
                         fontSize: '40px',
                         fontFamily: 'fantasy',
                         textAlign: 'center',
-                        boxShadow: '1px 1px 2px #aaa'
+                        perspective: '200px',
+                        transformStyle: 'preserve-3d',
+                        cursor: 'pointer'
                         }}
                 className = {'card-container ' + className}
             >
                 <div
-                    className={'card'}
+                    className="card"
                     style={{
                         background,
-                        color,
                         width: '100%',
-                        height: '100%'
+                        height: '100%',
+                        boxShadow: '1px 1px 2px #aaa'
                     }}
                 >
-                    {cardElement}
+                    <div
+                        className="cover"
+                        style={{ color }}
+                    >
+                        {'<'}
+                    </div>
+                    <div
+                        className="rank"
+                        style={{ color }}
+                    >
+                        {cardElement}
+                    </div>
                 </div>
             </div>
         );
