@@ -1,0 +1,48 @@
+.container {
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  left: calc(50% - 300px);
+  top: calc(50% - 300px);
+  background: lavender;
+}
+
+.card-container {
+  -webkit-perspective: 1000px;
+  perspective: 1000px;
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+}
+
+.card {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  -webkit-transition: all 600ms;
+  transition: all 600ms;
+  z-index: 20;
+}
+
+.card-container .card {
+  -webkit-transform: rotateY(0deg);
+  transform: rotateY(0deg);
+}
+
+.card-container:hover .card {
+  -webkit-transform: rotateY(20deg);
+  transform: rotateY(20deg);
+  box-shadow: -20px 0 20px rgba(50,50,50,.2);
+}
+
+.card-container.checked .card {
+  transform: rotateY(180deg);
+  -webkit-transform: rotateY(180deg);
+}
+
+.card-container.checked:hover .card {
+  transform: rotateY(160deg);
+  -webkit-transform: rotateY(160deg);
+  box-shadow: -20px 0 20px rgba(255,255,255,.2);
+}
