@@ -1,6 +1,11 @@
 import { Component } from 'react';
 
 class Card extends Component {
+  clickHandler() {
+    const { index, belong, player } = this.props;
+    console.log(`player${player} click ${belong}'s ${index}th card`)
+  }
+
   render() {
     let { index, relativePosition, card, belong, player } = this.props;
     if (!card) {
@@ -49,6 +54,7 @@ class Card extends Component {
           cursor: 'pointer'
         }}
         className={'card-container ' + className}
+        onClick={this.clickHandler.bind(this)}
       >
         <div
           className="card"

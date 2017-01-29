@@ -120,7 +120,7 @@ class Main_ extends Component {
         <Hand
           relativePosition={'deck'}
           hand={deck}
-          belong={null}
+          belong={'deck'}
           player={0}
         />
       </div>

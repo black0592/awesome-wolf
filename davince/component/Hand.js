@@ -35,7 +35,21 @@ class Hand extends Component {
     const { relativePosition, hand, belong, player } = this.props;
     if (relativePosition === 'deck'){
       return (
-        <div>deck</div>
+        <div className={relativePosition} style={{
+          position: 'absolute',
+          display: 'flex',
+          width: '324px',
+          left: '138px',
+          top: '138px',
+          flexWrap: 'wrap'
+        }}>
+          {
+            hand.map((card, index) => {
+              return (
+                <Card index={index} relativePosition={relativePosition} card={card} belong={belong} player={player} />
+              );
+            })}
+        </div>
       );
     }
     const style = this.mapPositionToStyle(relativePosition);
