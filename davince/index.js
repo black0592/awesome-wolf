@@ -4,6 +4,8 @@ const {Provider} = ReactRedux;
 const {connect} = ReactRedux;
 const {combineReducers} = Redux;
 import Hand from './component/Hand';
+import PlayerInfo from './component/PlayerInfo';
+import ShowTurn from './component/ShowTurn';
 
 function drawCard(hand, deck) {
   hand.push(deck.pop());
@@ -82,7 +84,11 @@ function getInitialState() {
   shuffle(deck);
   const state = {
     player: [[],[],[],[]],
-    deck
+    deck,
+    turn: {
+      player: 0,
+      step: 'draw'
+    }
   };
   initDraw(state);
   return {state};
@@ -90,9 +96,33 @@ function getInitialState() {
 
 class Main_ extends Component {
   render() {
-    const {player, deck} = this.props.state;
+    const {player, deck, turn} = this.props.state;
     return (
       <div className="container">
+        <PlayerInfo
+          relativePosition={0}
+          hand={player[0]}
+          belong={0}
+          player={0}
+        />
+        <PlayerInfo
+          relativePosition={1}
+          hand={player[1]}
+          belong={1}
+          player={0}
+        />
+        <PlayerInfo
+          relativePosition={2}
+          hand={player[2]}
+          belong={2}
+          player={0}
+        />
+        <PlayerInfo
+          relativePosition={3}
+          hand={player[3]}
+          belong={3}
+          player={0}
+        />
         <Hand
           relativePosition={0}
           hand={player[0]}
@@ -122,6 +152,10 @@ class Main_ extends Component {
           hand={deck}
           belong={'deck'}
           player={0}
+        />
+        <ShowTurn
+          turn={turn}
+          player={player}
         />
       </div>
     );

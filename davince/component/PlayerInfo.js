@@ -1,10 +1,10 @@
 import { Component } from 'react';
 import Card from './Card';
 
-class Hand extends Component {
+class PlayerInfo extends Component {
   mapPositionToStyle(position) {
-    const paddingPx = 30
-    const heightPx = 54
+    const paddingPx = 10
+    const heightPx = 10
     const paddingRightPx = 600 - heightPx - paddingPx
     const widthPx = 600 - heightPx * 2 - paddingPx * 2;
     const leftPx = heightPx + paddingPx;
@@ -37,37 +37,15 @@ class Hand extends Component {
 
   render() {
     const { relativePosition, hand, belong, player } = this.props;
-    if (relativePosition === 'deck'){
-      return (
-        <div className={relativePosition} style={{
-          position: 'absolute',
-          display: 'flex',
-          width: '324px',
-          left: '138px',
-          top: '138px',
-          flexWrap: 'wrap'
-        }}>
-          {
-            hand.map((card, index) => {
-              return (
-                <Card index={index} relativePosition={relativePosition} card={card} belong={belong} player={player} />
-              );
-            })}
-        </div>
-      );
-    }
     const style = this.mapPositionToStyle(relativePosition);
     return (
       <div className={relativePosition} style={style}>
-        {
-          hand.map((card, index) => {
-            return (
-              <Card index={index} relativePosition={relativePosition} card={card} belong={belong} player={player} />
-            );
-          })}
+        <div style={{width: '10px', height: '10px', borderRadius: '50%', background: 'pink'}}>
+
+        </div>
       </div>
     );
   }
 }
 
-export default Hand;
+export default PlayerInfo;
