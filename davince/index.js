@@ -3,6 +3,7 @@ const {createStore, applyMiddleware} = Redux;
 const {Provider} = ReactRedux;
 const {connect} = ReactRedux;
 const {combineReducers} = Redux;
+import Hand from './component/Hand';
 
 function drawCard(hand, deck) {
   hand.push(deck.pop());
@@ -18,9 +19,7 @@ function drawFourCard(hand, deck) {
 
 function compare(a, b) {
   if (a.rank == '-' || b.rank == '-') {
-    if (Math.random() < 0.5) {
-      return -1;
-    }
+    // seems good https://trello.com/c/2acMc6pd/1-1-sort-sort
     return 1;
   }
   if (a.rank < b.rank) {
@@ -37,8 +36,7 @@ function compare(a, b) {
 
 function initDraw(state) {
   const {player, deck} = state;
-  Object.keys(player).map((key) => {
-    const hand = player[key];
+  player.map((hand) => {
     drawFourCard(hand, deck);
     hand.sort(compare);
   });
@@ -83,12 +81,7 @@ function getInitialState() {
   const deck = getDeck();
   shuffle(deck);
   const state = {
-    player: {
-      east: [],
-      south: [],
-      west: [],
-      north: []
-    },
+    player: [[],[],[],[]],
     deck
   };
   initDraw(state);
@@ -111,12 +104,14 @@ class Main_ extends Component {
           justifyContent: 'space-between'
         }}>
           <Hand
-            hand={player.north}
-            player="north"
+            hand={player[2]}
+            player={2}
+            relativePosition={2}
           />
           <Hand
-            hand={player.south}
-            player="south"
+            hand={player[0]}
+            player={0}
+            relativePosition={0}
           />
         </div>
         <div style={{
@@ -130,12 +125,14 @@ class Main_ extends Component {
           justifyContent: 'space-between'
         }}>
           <Hand
-            hand={player.west}
-            player="west"
+            hand={player[3]}
+            player={3}
+            relativePosition={3}
           />
           <Hand
-            hand={player.east}
-            player="east"
+            hand={player[1]}
+            player={1}
+            relativePosition={1}
           />
         </div>
       </div>
@@ -151,106 +148,6 @@ const Main = connect(({reducer}) => {
   return {}
 })(Main_);
 
-class Hand extends Component {
-  mapPlayerToStyle(player) {
-    const flexDirection = {
-      east: 'column-reverse',
-      south: 'row-reverse',
-      west: 'column',
-      north: 'row'
-    };
-    return {
-      display: 'flex',
-      flexDirection: flexDirection[player],
-      justifyContent: 'center'
-    };
-  }
-
-  render() {
-    const {hand, player} = this.props;
-    const style = this.mapPlayerToStyle(player);
-    return (
-      <div className={player} style={style}>
-        {
-          hand.map((card) => <Card card={card} player={player}/>)}
-      </div>
-    );
-  }
-}
-class Card extends Component {
-
-  render() {
-    let {card, player} = this.props;
-    if (!card) {
-      card = {
-        background: '#eee',
-        color: 'eee',
-        rank: '',
-        isOpen: false
-      };
-    }
-    const {background, color, rank, isOpen} = card;
-    let cardElement = null;
-    let className = ''
-    if (isOpen) {
-      className = 'checked'
-      cardElement = rank
-    } else if (player === 'south') {
-      className = 'checked'
-      cardElement = rank
-    } else {
-      className = 'unchecked'
-      cardElement = 'T'
-    }
-    const cardFaceStyle = {
-      background,
-      color,
-      position: 'absolute',
-      height: '100%',
-      width: '100%',
-      backfaceVisibility: 'hidden',
-      boxShadow: '1px 1px 2px #aaa'
-    }
-    return (
-      <div
-        style={{
-          display: 'inline-block',
-          margin: '2px',
-          width: '50px',
-          height: '50px',
-          fontSize: '40px',
-          fontFamily: 'fantasy',
-          textAlign: 'center',
-          perspective: '200px',
-          transformStyle: 'preserve-3d',
-          cursor: 'pointer'
-        }}
-        className={'card-container ' + className}
-      >
-        <div
-          className="card"
-          style={{
-            width: '100%',
-            height: '100%'
-          }}
-        >
-          <div
-            className="cover"
-            style={ cardFaceStyle }
-          >
-            {'<'}
-          </div>
-          <div
-            className="rank"
-            style={ cardFaceStyle }
-          >
-            {cardElement}
-          </div>
-        </div>
-      </div>
-    );
-  }
-}
 const reducer = (state = getInitialState(), action) => {
   switch (action.type) {
     case 'PLAY':
