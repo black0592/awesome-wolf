@@ -93,48 +93,26 @@ class Main_ extends Component {
     const {player} = this.props.state;
     return (
       <div className="container">
-        <div style={{
-          position: 'absolute',
-          width: '580px',
-          height: '580px',
-          left: 'calc(50% - 290px)',
-          top: 'calc(50% - 290px)',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'space-between'
-        }}>
-          <Hand
-            hand={player[2]}
-            player={2}
-            relativePosition={2}
-          />
-          <Hand
-            hand={player[0]}
-            player={0}
-            relativePosition={0}
-          />
-        </div>
-        <div style={{
-          position: 'absolute',
-          width: '580px',
-          height: '580px',
-          left: 'calc(50% - 290px)',
-          top: 'calc(50% - 290px)',
-          display: 'flex',
-          flexDirection: 'row',
-          justifyContent: 'space-between'
-        }}>
-          <Hand
-            hand={player[3]}
-            player={3}
-            relativePosition={3}
-          />
-          <Hand
-            hand={player[1]}
-            player={1}
-            relativePosition={1}
-          />
-        </div>
+        <Hand
+          hand={player[0]}
+          player={0}
+          relativePosition={0}
+        />
+        <Hand
+          hand={player[1]}
+          player={1}
+          relativePosition={1}
+        />
+        <Hand
+          hand={player[2]}
+          player={2}
+          relativePosition={2}
+        />
+        <Hand
+          hand={player[3]}
+          player={3}
+          relativePosition={3}
+        />
       </div>
     );
   }
