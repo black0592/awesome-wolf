@@ -2,7 +2,7 @@ import { Component } from 'react';
 
 class Card extends Component {
   render() {
-    let {card, player, relativePosition, index} = this.props;
+    let { index, relativePosition, card, belong, player } = this.props;
     if (!card) {
       card = {
         background: '#eee',

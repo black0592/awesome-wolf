@@ -2,7 +2,7 @@ import { Component } from 'react';
 import Card from './Card';
 
 class Hand extends Component {
-  mapPlayerToStyle(position) {
+  mapPositionToStyle(position) {
     const sidePx = 600 - 54 - 54 - 10 - 10;
     const width = [
       sidePx + 'px', '54px', sidePx + 'px', '54px'
@@ -32,14 +32,19 @@ class Hand extends Component {
   }
 
   render() {
-    const {hand, player, relativePosition} = this.props;
-    const style = this.mapPlayerToStyle(relativePosition);
+    const { relativePosition, hand, belong, player } = this.props;
+    if (relativePosition === 'deck'){
+      return (
+        <div>deck</div>
+      );
+    }
+    const style = this.mapPositionToStyle(relativePosition);
     return (
       <div className={relativePosition} style={style}>
         {
           hand.map((card, index) => {
             return (
-              <Card index={index} card={card} player={player} relativePosition={relativePosition} />
+              <Card index={index} relativePosition={relativePosition} card={card} belong={belong} player={player} />
             );
           })}
       </div>
