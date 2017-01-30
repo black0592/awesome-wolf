@@ -6,8 +6,12 @@ import PlayerInfo from './component/PlayerInfo';
 import ShowTurn from './component/ShowTurn';
 
 class Main_ extends Component {
+  componentWillMount() {
+    this.props.dispatch({type: 'INITDRAW'})
+    console.log(`this.props.dispatch({type: 'INITDRAW'})`)
+  }
   render() {
-    const {player, deck, turn} = this.props.state;
+    const {player, deck, turn} = this.props;
     return (
       <div className="container">
         <PlayerInfo
@@ -75,10 +79,10 @@ class Main_ extends Component {
 ;
 
 const Main = connect(({reducer}) => {
-  const state = reducer.state
-  return {state};
+  const state = reducer
+  return state;
 }, (dispatch) => {
-  return {}
+  return {dispatch}
 })(Main_);
 
 import store from './redux/store'

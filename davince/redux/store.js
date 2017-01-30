@@ -84,14 +84,15 @@ function getInitialState() {
       step: 'draw'
     }
   };
-  initDraw(state);
-  return {state};
+  return state;
 }
 
 const reducer = (state = getInitialState(), action) => {
   switch (action.type) {
-    case 'PLAY':
-      return {};
+    case 'INITDRAW':
+      const nextState = Object.assign({}, state);
+      initDraw(nextState);
+      return nextState;
     default:
       return state;
   }
