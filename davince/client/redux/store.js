@@ -7,6 +7,8 @@ const reducer = (state = getInitialState(), action) => {
     case 'INITDRAW':
       initDraw(nextState);
       return nextState;
+    case 'DRAWCARD':
+      return nextState;
     default:
       return nextState;
   }
