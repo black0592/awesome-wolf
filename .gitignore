@@ -1,5 +1,5 @@
 # IDE
 .idea
 
-davince/.idea
-davince/node_modules
+*/.idea
+*/node_modules
