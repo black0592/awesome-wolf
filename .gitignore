@@ -1,5 +1,4 @@
+node_modules/
+
 # IDE
 .idea
-
-*/.idea
-*/node_modules
