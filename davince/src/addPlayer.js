@@ -15,6 +15,6 @@ function addPlayer(room, userId) {
   room.playerInfo[playerId] = {
     userId
   }
-  return room;
+  return {room, playerId};
 }
 export default addPlayer;

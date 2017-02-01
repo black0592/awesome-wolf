@@ -9,16 +9,16 @@ function handler(client){
   };
   client.on('init', function (data) {
     const { userId, roomId } = data;
-    let room = null;
+    let preRoom = null;
     if(roomId) {
       cache.roomId = roomId
-      room = rooms[roomId];
+      preRoom = rooms[roomId];
     } else {
       cache.roomId = ++roomPointer;
-      room = getInitialState(roomPointer)
+      preRoom = getInitialState(roomPointer)
     }
-
-    cache.whoAmI = addPlayer(room, userId)
+    const { room, playerId } = addPlayer(preRoom, userId)
+    cache.whoAmI = playerId;
     rooms[cache.roomId] = room;
     client.emit('init', room)
   })
