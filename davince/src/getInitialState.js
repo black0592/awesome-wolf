@@ -33,16 +33,19 @@ function shuffle(deck) {
   deck.sort(() => Math.random() - 0.5);
 }
 
-function getInitialState() {
+function getInitialState(roomId) {
   const deck = getInitialDeck();
   shuffle(deck);
   const state = {
+    room: { roomId },
+    playerInfo: [{},{},{},{}],
     player: [[],[],[],[]],
     deck,
     turn: {
       player: 0,
-      step: 'draw'
-    }
+      step: 'waiting'
+    },
+    error: ''
   };
   return state;
 }

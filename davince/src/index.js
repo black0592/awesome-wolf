@@ -1,25 +1,29 @@
 import getInitialState from './getInitialState';
+import addPlayer from './addPlayer';
 const rooms = [];
 let roomPointer = -1;
 function handler(client){
-  let roomIdCache = null;
+  const cache = {
+    roomId: null,
+    whoAmI: null
+  };
   client.on('init', function (data) {
     const { userId, roomId } = data;
     let room = null;
     if(roomId) {
-      roomIdCache = roomId
+      cache.roomId = roomId
       room = rooms[roomId];
     } else {
-      roomIdCache = ++roomPointer;
+      cache.roomId = ++roomPointer;
       room = getInitialState(roomPointer)
     }
 
-    // addPlayer(room)
-    rooms[roomIdCache] = room;
+    cache.whoAmI = addPlayer(room, userId)
+    rooms[cache.roomId] = room;
     client.emit('init', room)
   })
   client.on('event', function(data){
-    client.emit('event', rooms[roomIdCache])
+    client.emit('event', rooms[cache.roomId])
   });
   client.on('disconnect', function(){console.log('disconnect')});
 }
