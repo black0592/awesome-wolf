@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "cd client && webpack-dev-server --process --colors",
-    "init": "cd client && npm install"
+    "server": "node index",
+    "client": "cd client && webpack-dev-server --process --colors",
+    "init": "npm install && cd client && npm install"
   },
   "author": "",
   "license": "ISC",
