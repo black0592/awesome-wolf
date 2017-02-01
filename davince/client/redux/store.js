@@ -1,9 +1,11 @@
 import { combineReducers, createStore, applyMiddleware } from 'redux';
 import initDraw from './tempInitDraw'
-import getInitialState from './getInitialState'
-const reducer = (state = getInitialState(), action) => {
+
+const reducer = (state = {notInit: true}, action) => {
   const nextState = Object.assign({}, state);
   switch (action.type) {
+    case 'INIT':
+      return Object.assign({}, action.payload);
     case 'INITDRAW':
       initDraw(nextState);
       return nextState;

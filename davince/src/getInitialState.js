@@ -43,7 +43,7 @@ function getInitialState(roomId) {
     deck,
     turn: {
       player: 0,
-      step: 'waiting'
+      step: 'login'
     },
     error: ''
   };

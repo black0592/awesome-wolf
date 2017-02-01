@@ -5,12 +5,35 @@ import Hand from './component/Hand';
 import PlayerInfo from './component/PlayerInfo';
 import ShowTurn from './component/ShowTurn';
 
+var socket = require('socket.io-client')('http://localhost:3000');
 class Main_ extends Component {
   componentWillMount() {
-    this.props.dispatch({type: 'INITDRAW'})
-    console.log(`this.props.dispatch({type: 'INITDRAW'})`)
+    // this.props.dispatch({type: 'INITDRAW'})
+    // console.log(`this.props.dispatch({type: 'INITDRAW'})`)
+  }
+  init(room) {
+    console.log('init', room)
+    socket.emit('event')
+    this.props.dispatch({type: 'INIT', payload: room})
+    // console.log(`this.props.dispatch({type: 'INITDRAW'})`)
+  }
+  componentDidMount() {
+    socket.on('connect', function(){});
+    socket.on('disconnect', function(){});
+
+    socket.on('init', this.init.bind(this))
+    socket.on('event', function(data){
+      console.log('event: ',data)
+    });
+    socket.emit('init', {userId: 'dancerphil', roomId: null})
   }
   render() {
+    const {notInit} = this.props;
+    if(notInit) {
+      return (
+        <div>notInit</div>
+        )
+    }
     const {player, deck, turn} = this.props;
     return (
       <div className="container">

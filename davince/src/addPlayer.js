@@ -2,19 +2,24 @@
 function addPlayer(room, userId) {
   if (!room) {
     return {
-      error: '房间不存在'
+      room: {
+        error: '房间不存在'
+      }
     }
   }
-  if(room.turn.step !== 'waiting') {
+  if(room.turn.step !== 'login') {
     return {
-      error: '房间已满'
+      room: {
+        error: '房间已满'
+      }
     }
   }
   const playerId = room.turn.player;
-  room.turn.player += 1;
-  room.playerInfo[playerId] = {
+  const nextState = Object.assign({}, room)
+  nextState.turn.player += 1;
+  nextState.playerInfo[playerId] = {
     userId
   }
-  return {room, playerId};
+  return {room: nextState, playerId};
 }
 export default addPlayer;
