@@ -6,7 +6,7 @@ const reducer = (state = {notInit: true}, action) => {
   switch (action.type) {
     case 'INIT':
       return Object.assign({}, action.payload);
-    case 'EVENT':
+    case 'DIRT':
       return Object.assign({}, action.payload);
     case 'INITDRAW':
       initDraw(nextState);

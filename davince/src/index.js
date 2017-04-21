@@ -26,10 +26,10 @@ function handler(client){
   client.on('draw', function(data){
     const room = rooms[cache.roomId]
     const nextRoom = drawCard(room, data.player, data.index)
-    client.emit('event', nextRoom)
+    client.emit('dirt', nextRoom)
   });
   client.on('event', function(data){
-    client.emit('event', rooms[cache.roomId])
+    client.emit('dirt', rooms[cache.roomId])
   });
   client.on('disconnect', function(){console.log('disconnect')});
 }

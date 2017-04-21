@@ -17,14 +17,17 @@ class Main_ extends Component {
     this.props.dispatch({type: 'INIT', payload: room})
     // console.log(`this.props.dispatch({type: 'INITDRAW'})`)
   }
+
+  dirt(room) {
+    this.props.dispatch({type: 'DIRT', payload: room})
+  }
+
   componentDidMount() {
     socket.on('connect', function(){});
     socket.on('disconnect', function(){});
 
     socket.on('init', this.init.bind(this))
-    socket.on('event', function(data){
-      console.log('event: ',data)
-    });
+    socket.on('dirt', this.dirt.bind(this));
     socket.emit('init', {userId: 'dancerphil', roomId: null})
   }
   render() {
