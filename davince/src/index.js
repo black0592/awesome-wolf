@@ -1,5 +1,6 @@
 import getInitialState from './getInitialState';
 import addPlayer from './addPlayer';
+import drawCard from './drawCard'
 const rooms = [];
 let roomPointer = -1;
 function handler(client){
@@ -23,8 +24,9 @@ function handler(client){
     client.emit('init', room)
   })
   client.on('draw', function(data){
-    console.log('draw')
-    client.emit('event', rooms[cache.roomId])
+    const room = rooms[cache.roomId]
+    const nextRoom = drawCard(room, data.player, data.index)
+    client.emit('event', nextRoom)
   });
   client.on('event', function(data){
     client.emit('event', rooms[cache.roomId])
