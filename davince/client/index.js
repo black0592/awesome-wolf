@@ -3,11 +3,13 @@ const {Provider} = ReactRedux;
 const {connect} = ReactRedux;
 import Hand from './component/Hand';
 import PlayerInfo from './component/PlayerInfo';
+import RoomId from './component/RoomId';
 import ShowTurn from './component/ShowTurn';
 import socket from './helper/socket';
 
 class Main_ extends Component {
   componentWillMount() {
+    this.state = {roomId: null}
     // this.props.dispatch({type: 'INITDRAW'})
     // console.log(`this.props.dispatch({type: 'INITDRAW'})`)
   }
@@ -28,18 +30,31 @@ class Main_ extends Component {
 
     socket.on('init', this.init.bind(this))
     socket.on('dirt', this.dirt.bind(this));
-    socket.emit('init', {userId: 'dancerphil', roomId: null})
   }
+
+  roomHandler(event) {
+    this.setState({roomId: event.target.value});
+  }
+
+  initHandler() {
+    const { roomId } = this.state;
+    socket.emit('init', {userId: 'dancerphil', roomId})
+  }
+
   render() {
     const {notInit} = this.props;
     if(notInit) {
       return (
-        <div>notInit</div>
+        <div>
+          <input type="text" onChange={this.roomHandler.bind(this)} value={this.state.roomId}/>
+          <div onClick={this.initHandler.bind(this)}>开始游戏</div>
+        </div>
         )
     }
-    const {player, deck, turn} = this.props;
+    const {room, player, deck, turn} = this.props;
     return (
       <div className="container">
+        <RoomId roomId={room.roomId} />
         <PlayerInfo
           relativePosition={0}
           hand={player[0]}

@@ -1,6 +1,6 @@
 
 function addPlayer(room, userId) {
-  if (!room) {
+  if (!room || !room.turn) {
     return {
       room: {
         error: '房间不存在'
