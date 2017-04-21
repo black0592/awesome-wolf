@@ -4,8 +4,8 @@ const {connect} = ReactRedux;
 import Hand from './component/Hand';
 import PlayerInfo from './component/PlayerInfo';
 import ShowTurn from './component/ShowTurn';
+import socket from './helper/socket';
 
-var socket = require('socket.io-client')('http://localhost:3000');
 class Main_ extends Component {
   componentWillMount() {
     // this.props.dispatch({type: 'INITDRAW'})

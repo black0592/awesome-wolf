@@ -22,6 +22,10 @@ function handler(client){
     rooms[cache.roomId] = room;
     client.emit('init', room)
   })
+  client.on('draw', function(data){
+    console.log('draw')
+    client.emit('event', rooms[cache.roomId])
+  });
   client.on('event', function(data){
     client.emit('event', rooms[cache.roomId])
   });

@@ -1,9 +1,17 @@
 import { Component } from 'react';
+import socket from '../helper/socket';
 
 class Card extends Component {
   clickHandler() {
     const { index, belong, player } = this.props;
     console.log(`player${player} click ${belong}'s ${index}th card`)
+    if(belong === 'deck') {
+      console.log(`socket.emit('draw', {player, index})`)
+      socket.emit('draw', {player, index})
+    } else {
+      console.log(`socket.emit('guess', {player, belong, index})`)
+      // socket.emit('guess', {player, belong, index})
+    }
   }
 
   render() {

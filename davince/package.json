@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "server": "babel-node index",
-    "client": "cd client && webpack-dev-server --process --colors",
+    "client": "cd client && npm run start",
     "init": "npm install && cd client && npm install"
   },
   "author": "",
