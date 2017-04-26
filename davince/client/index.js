@@ -80,25 +80,25 @@ class Main_ extends Component {
           player={whoAmI}
         />
         <Hand
-          relativePosition={0}
+          relativePosition={(whoAmI + 4) % 4}
           hand={player[0]}
           belong={0}
           player={whoAmI}
         />
         <Hand
-          relativePosition={1}
+          relativePosition={(whoAmI + 3) % 4}
           hand={player[1]}
           belong={1}
           player={whoAmI}
         />
         <Hand
-          relativePosition={2}
+          relativePosition={(whoAmI + 2) % 4}
           hand={player[2]}
           belong={2}
           player={whoAmI}
         />
         <Hand
-          relativePosition={3}
+          relativePosition={(whoAmI + 1) % 4}
           hand={player[3]}
           belong={3}
           player={whoAmI}
