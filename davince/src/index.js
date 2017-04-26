@@ -1,8 +1,9 @@
 import getInitialState from './getInitialState';
 import addPlayer from './addPlayer';
 import drawCard from './drawCard'
-const rooms = [];
-let roomPointer = -1;
+const DB = [];
+const ClientPool = [];
+let DBPointer = -1;
 function handler(client){
   const cache = {
     roomId: null,
@@ -10,28 +11,44 @@ function handler(client){
   };
   client.on('init', function (data) {
     const { userName, roomId } = data;
-    let preRoom = null;
+    let initRoom = null;
+    let initClients = [];
     if(roomId) {
       cache.roomId = roomId
-      preRoom = rooms[roomId];
+      initRoom = DB[roomId];
+      initClients = ClientPool[roomId];
     } else {
-      cache.roomId = ++roomPointer;
-      preRoom = getInitialState(roomPointer)
+      cache.roomId = ++DBPointer;
+      initRoom = getInitialState(DBPointer)
     }
-    const { room, playerId } = addPlayer(preRoom, userName)
-    rooms[cache.roomId] = room;
+    const { room, playerId } = addPlayer(initRoom, userName)
+    initClients.push({client, whoAmI: playerId});
+    DB[cache.roomId] = room;
+    ClientPool[cache.roomId] = initClients;
     cache.whoAmI = playerId;
-    room.whoAmI = playerId;
-    client.emit('init', room)
+    // room.whoAmI = playerId;
+    // client.emit('init', room)
+    emit(cache.roomId, 'init')
   })
   client.on('draw', function(data){
-    const room = rooms[cache.roomId]
+    const room = DB[cache.roomId]
     const nextRoom = drawCard(room, data.player, data.index)
     client.emit('dirt', nextRoom)
   });
   client.on('event', function(data){
-    client.emit('dirt', rooms[cache.roomId])
+    client.emit('dirt', DB[cache.roomId])
   });
   client.on('disconnect', function(){console.log('disconnect')});
 }
+
+function emit(roomId, namespace) {
+  const room = DB[roomId];
+  const clients = ClientPool[roomId];
+  clients.forEach((item) => {
+    const {client, whoAmI} = item;
+    room.whoAmI = whoAmI;
+    client.emit(namespace, room)
+  })
+}
+
 export default handler;
