@@ -38,7 +38,7 @@ class Main_ extends Component {
 
   initHandler() {
     const { roomId } = this.state;
-    socket.emit('init', {userId: 'dancerphil', roomId})
+    socket.emit('init', {userName: 'dancerphil', roomId})
   }
 
   render() {
@@ -51,63 +51,63 @@ class Main_ extends Component {
         </div>
         )
     }
-    const {room, player, deck, turn} = this.props;
+    const {roomId, whoAmI, player, deck, turn} = this.props;
     return (
       <div className="container">
-        <RoomId roomId={room.roomId} />
+        <RoomId roomId={roomId} />
         <PlayerInfo
           relativePosition={0}
           hand={player[0]}
           belong={0}
-          player={0}
+          player={whoAmI}
         />
         <PlayerInfo
           relativePosition={1}
           hand={player[1]}
           belong={1}
-          player={0}
+          player={whoAmI}
         />
         <PlayerInfo
           relativePosition={2}
           hand={player[2]}
           belong={2}
-          player={0}
+          player={whoAmI}
         />
         <PlayerInfo
           relativePosition={3}
           hand={player[3]}
           belong={3}
-          player={0}
+          player={whoAmI}
         />
         <Hand
           relativePosition={0}
           hand={player[0]}
           belong={0}
-          player={0}
+          player={whoAmI}
         />
         <Hand
           relativePosition={1}
           hand={player[1]}
           belong={1}
-          player={0}
+          player={whoAmI}
         />
         <Hand
           relativePosition={2}
           hand={player[2]}
           belong={2}
-          player={0}
+          player={whoAmI}
         />
         <Hand
           relativePosition={3}
           hand={player[3]}
           belong={3}
-          player={0}
+          player={whoAmI}
         />
         <Hand
           relativePosition={'deck'}
           hand={deck}
           belong={'deck'}
-          player={0}
+          player={whoAmI}
         />
         <ShowTurn
           turn={turn}

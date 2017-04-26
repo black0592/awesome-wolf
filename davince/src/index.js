@@ -9,7 +9,7 @@ function handler(client){
     whoAmI: null
   };
   client.on('init', function (data) {
-    const { userId, roomId } = data;
+    const { userName, roomId } = data;
     let preRoom = null;
     if(roomId) {
       cache.roomId = roomId
@@ -18,9 +18,10 @@ function handler(client){
       cache.roomId = ++roomPointer;
       preRoom = getInitialState(roomPointer)
     }
-    const { room, playerId } = addPlayer(preRoom, userId)
-    cache.whoAmI = playerId;
+    const { room, playerId } = addPlayer(preRoom, userName)
     rooms[cache.roomId] = room;
+    cache.whoAmI = playerId;
+    room.whoAmI = playerId;
     client.emit('init', room)
   })
   client.on('draw', function(data){

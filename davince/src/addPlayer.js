@@ -1,5 +1,5 @@
 
-function addPlayer(room, userId) {
+function addPlayer(room, userName) {
   if (!room || !room.turn) {
     return {
       room: {
@@ -18,7 +18,7 @@ function addPlayer(room, userId) {
   const nextState = Object.assign({}, room)
   nextState.turn.player += 1;
   nextState.playerInfo[playerId] = {
-    userId
+    userName
   }
   return {room: nextState, playerId};
 }

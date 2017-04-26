@@ -37,7 +37,8 @@ function getInitialState(roomId) {
   const deck = getInitialDeck();
   shuffle(deck);
   const state = {
-    room: { roomId },
+    roomId,
+    whoAmI: null,
     playerInfo: [{},{},{},{}],
     player: [[],[],[],[]],
     deck,
