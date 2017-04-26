@@ -15,11 +15,10 @@ function addPlayer(room, userName) {
     }
   }
   const playerId = room.turn.player;
-  const nextState = Object.assign({}, room)
-  nextState.turn.player += 1;
-  nextState.playerInfo[playerId] = {
+  room.turn.player += 1;
+  room.playerInfo[playerId] = {
     userName
   }
-  return {room: nextState, playerId};
+  return {room, playerId};
 }
 export default addPlayer;

@@ -15,7 +15,7 @@ function handler(client){
     let initClients = [];
     if(roomId) {
       cache.roomId = roomId
-      initRoom = DB[roomId];
+      initRoom = getRoom(roomId);
       initClients = ClientPool[roomId];
     } else {
       cache.roomId = ++DBPointer;
@@ -31,9 +31,11 @@ function handler(client){
     emit(cache.roomId, 'init')
   })
   client.on('draw', function(data){
-    const room = DB[cache.roomId]
-    const nextRoom = drawCard(room, data.player, data.index)
-    client.emit('dirt', nextRoom)
+    const { player, index } = data
+    const { roomId } = cache;
+    const initRoom = getRoom(roomId);
+    const room = drawCard(initRoom, player, index)
+    client.emit('dirt', room)
   });
   client.on('event', function(data){
     client.emit('dirt', DB[cache.roomId])
@@ -46,9 +48,14 @@ function emit(roomId, namespace) {
   const clients = ClientPool[roomId];
   clients.forEach((item) => {
     const {client, whoAmI} = item;
+    console.log(item)
     room.whoAmI = whoAmI;
     client.emit(namespace, room)
   })
+}
+
+function getRoom(roomId) {
+  return Object.assign({}, DB[roomId]);
 }
 
 export default handler;

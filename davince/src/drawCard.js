@@ -14,10 +14,9 @@ function drawCard(room, player, index) {
       }
     }
   }
-  const nextState = Object.assign({}, room)
-  const playerHand = nextState.player[player]
-  const card = nextState.deck.splice(index, 1)[0];
+  const playerHand = room.player[player]
+  const card = room.deck.splice(index, 1)[0];
   playerHand.push(card);
-  return nextState;
+  return room;
 }
 export default drawCard;
