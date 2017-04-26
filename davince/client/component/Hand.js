@@ -15,13 +15,13 @@ class Hand extends Component {
       heightPx + 'px', widthPx + 'px', heightPx + 'px', widthPx + 'px'
     ]
     const left = [
-      leftPx + 'px', paddingRightPx + 'px', leftPx + 'px', paddingPx + 'px'
+      leftPx + 'px', paddingPx + 'px', leftPx + 'px', paddingRightPx + 'px'
     ]
     const top = [
       paddingRightPx + 'px', leftPx + 'px', paddingPx + 'px', leftPx + 'px'
     ]
     const flexDirection = [
-      'row-reverse','column','row','column-reverse',
+      'row-reverse', 'column-reverse', 'row', 'column'
     ]
     return {
       position: 'absolute',

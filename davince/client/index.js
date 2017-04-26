@@ -15,9 +15,7 @@ class Main_ extends Component {
   }
   init(room) {
     console.log('init', room)
-    socket.emit('event')
     this.props.dispatch({type: 'INIT', payload: room})
-    // console.log(`this.props.dispatch({type: 'INITDRAW'})`)
   }
 
   dirt(room) {
@@ -54,7 +52,7 @@ class Main_ extends Component {
     const {roomId, whoAmI, player, deck, turn} = this.props;
     return (
       <div className="container">
-        <RoomId roomId={roomId} />
+        <RoomId roomId={roomId + ' whoAmI: ' + whoAmI} />
         <PlayerInfo
           relativePosition={(whoAmI + 4) % 4}
           hand={player[0]}
